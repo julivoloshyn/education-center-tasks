@@ -7,12 +7,21 @@ import java.util.List;
 public class ListTasksImpl implements ListTasks {
     @Override
     public List<String> addElements(String... elements) {
-        return null;
+
+        return List.of(elements);
     }
 
     @Override
     public List<String> getElementsByIndexes(List<String> elements, int[] indexes) {
-        return null;
+
+        List<String> newList = new ArrayList<>();
+
+        for(int i = 0; i < indexes.length; i++){
+
+            newList.add(elements.get(i));
+        }
+
+        return newList;
     }
 
     @Override
@@ -76,7 +85,9 @@ public class ListTasksImpl implements ListTasks {
     }
 
     @Override
-    public List<String> compareElements(LinkedList<String> originalCollection, LinkedList<String> additionalCollection) {
+    public List<String> compareElements(LinkedList<String> originalCollection, LinkedList<String> additionalCollection){
+
+
         return null;
     }
 }

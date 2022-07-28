@@ -1,15 +1,43 @@
 package com.knubisoft.base.date;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
+import java.util.Calendar;
+import java.util.Locale;
+
 public class DateTasksImpl implements DateTasks {
 
     @Override
     public String add1Day(String date) {
-        return null;
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        Calendar calendar = Calendar.getInstance();
+        try{
+            calendar.setTime(simpleDateFormat.parse(date));
+        }catch(ParseException e){
+            e.printStackTrace();
+        }
+
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+
+        return simpleDateFormat.format(calendar.getTime());
     }
 
     @Override
     public int getMonthFromDate(String date) {
-        return -1;
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE, d MMM yyyy", Locale.ENGLISH);
+
+        LocalDate dateTime = LocalDate.parse(date, formatter);
+
+        return dateTime.getMonthValue();
     }
 
     @Override
@@ -29,21 +57,49 @@ public class DateTasksImpl implements DateTasks {
 
     @Override
     public String getDateAfter2Weeks(String date) {
-        return null;
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        Calendar calendar = Calendar.getInstance();
+        try{
+            calendar.setTime(simpleDateFormat.parse(date));
+        }catch(ParseException e){
+            e.printStackTrace();
+        }
+
+        calendar.add(Calendar.DAY_OF_MONTH, 14);
+
+        return simpleDateFormat.format(calendar.getTime());
     }
 
     @Override
     public long getNumberOfDaysBetweenTwoDates(String date1, String date2) {
-        return -1;
+
+        LocalDate dateBefore = LocalDate.parse(date1);
+        LocalDate dateAfter = LocalDate.parse(date2);
+
+        return ChronoUnit.DAYS.between(dateBefore, dateAfter);
     }
 
     @Override
     public String[] getTheNextAndPreviousFriday(String date) {
-        return null;
+
+        LocalDate today = LocalDate.parse(date);
+
+        String previousFriday = String.valueOf(today.with(TemporalAdjusters.previous(DayOfWeek.FRIDAY)));
+        String nextFriday = String.valueOf(today.with(TemporalAdjusters.next(DayOfWeek.FRIDAY)));
+
+        return new String[] {previousFriday, nextFriday};
     }
 
     @Override
     public int getNumberOfMonthsRemainingInTheYear(String date) {
-        return -1;
+
+        LocalDate today = LocalDate.parse(date);
+
+        LocalDate lastDayOfYear = today.with(TemporalAdjusters.lastDayOfYear());
+        Period period = today.until(lastDayOfYear);
+
+        return period.getMonths();
     }
 }
