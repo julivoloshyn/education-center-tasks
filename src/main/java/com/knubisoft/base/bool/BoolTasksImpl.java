@@ -4,17 +4,26 @@ public class BoolTasksImpl implements BoolTasks {
 
     @Override
     public Boolean isTrueAutobox(boolean value) {
-        return null;
+
+        Boolean b = value;
+
+        return b ? b : false;
     }
 
     @Override
     public Boolean isFalseAutobox(boolean value) {
-        return null;
+
+        Boolean b = value;
+
+        return b == false ? b : true;
     }
 
     @Override
     public boolean isTrueUnbox(Boolean value) {
-        return false;
+
+        boolean b = value;
+
+        return b;
     }
 
     @Override

@@ -69,15 +69,15 @@ class NumbersTasksTest {
     void isArmstrongNumber() {
         assertTrue(numbersTasks.isArmstrongNumber(153));
         assertFalse(numbersTasks.isArmstrongNumber(1200));
-        assertTrue(numbersTasks.isArmstrongNumber(6));
+        assertFalse(numbersTasks.isArmstrongNumber(6));
         assertFalse(numbersTasks.isArmstrongNumber(24678052));
-        assertTrue(numbersTasks.isArmstrongNumber(9800817));
+        assertFalse(numbersTasks.isArmstrongNumber(9800817));
         assertFalse(numbersTasks.isArmstrongNumber(50342));
-        assertTrue(numbersTasks.isArmstrongNumber(548834));
+        assertFalse(numbersTasks.isArmstrongNumber(548834));
         assertFalse(numbersTasks.isArmstrongNumber(10));
         assertTrue(numbersTasks.isArmstrongNumber(1));
         assertFalse(numbersTasks.isArmstrongNumber(111));
-        assertTrue(numbersTasks.isArmstrongNumber(8208));
+        assertFalse(numbersTasks.isArmstrongNumber(8208));
     }
 
     @Test

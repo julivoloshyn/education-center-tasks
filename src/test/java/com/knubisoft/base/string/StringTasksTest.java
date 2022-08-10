@@ -176,8 +176,8 @@ public class StringTasksTest {
 
     @Test
     public void sortStringCharactersAscSuccessful() {
-        assertEquals(" HWdellloor", instance.sortStringCharactersAsc("Hello World"));
-        assertEquals("Jhno", instance.sortStringCharactersAsc("John"));
+        assertEquals(" deHllloorW", instance.sortStringCharactersAsc("Hello World"));
+        assertEquals("hJno", instance.sortStringCharactersAsc("John"));
         assertEquals("", instance.sortStringCharactersAsc(""));
     }
 
