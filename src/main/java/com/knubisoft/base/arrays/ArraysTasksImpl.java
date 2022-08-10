@@ -96,21 +96,22 @@ public class ArraysTasksImpl implements ArraysTasks {
     public int sumOfAllUniqueElements(int[] array) {
 
         Arrays.sort(array);
+        int sum;
 
-        int sum = 0;
-        int j = 0;
+        if (array.length > 2) {
+            Arrays.sort(array);
+            sum = array[0];
 
-        for (int i = 0; i < array.length - 1; i++) {
-            if (array[i] != array[i + 1]) {
-                array[j++] = array[i];
+            for (int i = 0; i < array.length - 1; i++) {
+
+                if (array[i] != array[i + 1]) {
+                    sum += array[i + 1];
+                }
             }
-        }
-
-        array[j++] = array[array.length - 1];
-
-        for (int i = 0; i < array.length; i++){
-            sum += array[i];
-        }
+        } else if (array.length > 1) {
+            sum = array[0] + array[1];
+        } else
+            sum = 0;
 
         return sum;
     }
@@ -171,6 +172,25 @@ public class ArraysTasksImpl implements ArraysTasks {
 
     @Override
     public int missingNumber(int[] array) {
+
+        int greatest = array.length;
+
+        for (int i = 0; i <= greatest; i++) {
+            boolean flag = false;
+
+            for (int num : array) {
+
+                if (num == i) {
+                    flag = true;
+                    break;
+                }
+            }
+
+            if (!flag) {
+                return i;
+            }
+        }
+
         return -1;
     }
 
