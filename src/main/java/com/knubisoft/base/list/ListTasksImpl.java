@@ -1,6 +1,10 @@
 package com.knubisoft.base.list;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 public class ListTasksImpl implements ListTasks {
 
@@ -13,31 +17,56 @@ public class ListTasksImpl implements ListTasks {
     @Override
     public List<String> getElementsByIndexes(List<String> elements, int[] indexes) {
 
-        List<String> newList = new ArrayList<>();
-
-        for (int i = 0; i < indexes.length; i++) {
-
-            newList.add(elements.get(i));
+        if (indexes == null) {
+            throw new IllegalArgumentException();
         }
 
-        return newList;
+        for (int i : indexes) {
+
+            if (i < 0 || i == Integer.MAX_VALUE) {
+                throw new IllegalArgumentException();
+            }
+
+            elements.add(elements.get(i));
+        }
+
+        return elements;
     }
 
     @Override
     public ArrayList<String> addElementsByIndexes(ArrayList<String> elements, int[] indexes) {
 
-        ArrayList<String> newList = new ArrayList<>(elements);
-
-        for (int j = 0; j <= newList.size() + indexes.length; j++) {
-            newList.add(indexes[j], elements.get(indexes[j]));
+        if (indexes == null) {
+            throw new IllegalArgumentException();
         }
 
-        return newList;
+        for (int i : indexes) {
+
+            if (i < 0 || i == Integer.MAX_VALUE) {
+                throw new IllegalArgumentException();
+            }
+            elements.add(i, elements.get(i));
+        }
+
+        return elements;
     }
 
     @Override
     public LinkedList<String> setElementsByIndexes(LinkedList<String> elements, int[] indexes) {
-        return null;
+
+        if (indexes == null) {
+            throw new IllegalArgumentException();
+        }
+
+        for (int i : indexes) {
+
+            if (i < 0 || i == Integer.MAX_VALUE) {
+                throw new IllegalArgumentException();
+            }
+            elements.set(i, elements.get(i));
+        }
+
+        return elements;
     }
 
     @Override
