@@ -14,7 +14,27 @@ public class NumbersTasksImpl implements NumbersTasks {
 
     @Override
     public boolean isUglyInt(int number) {
-        return false;
+
+        boolean isUgly = true;
+
+        if(number == 0){
+            isUgly = false;
+        } else{
+            while (number != 1) {
+
+                if (number % 5 == 0) {
+                    number /= 5;
+                } else if (number % 3 == 0) {
+                    number /= 3;
+                } else if (number % 2 == 0) {
+                    number /= 2;
+                } else {
+                    isUgly = false;
+                    break;
+                }
+            }
+        }
+        return isUgly;
     }
 
     @Override
@@ -34,14 +54,20 @@ public class NumbersTasksImpl implements NumbersTasks {
         int changedNumber = number;
         int sum = 0;
 
-        while(changedNumber > 0){
-            temp = changedNumber % 10;
-            sum += temp;
-            changedNumber /= 10;
-        }
+        if(number == 0){
+            isHarshad = false;
+        } else {
 
-        if(number % sum == 0){
-            isHarshad = true;
+            while (changedNumber > 0) {
+                temp = changedNumber % 10;
+                sum += temp;
+                changedNumber /= 10;
+            }
+
+            if (number % sum == 0) {
+                isHarshad = true;
+            }
+
         }
 
         return isHarshad;
@@ -103,39 +129,36 @@ public class NumbersTasksImpl implements NumbersTasks {
     @Override
     public boolean palindrome(int number) {
 
-        boolean isPalindrome = false;
-        int reversedNumber = 0;
-        int changedNumber = 0;
-        int temp;
+        int reversedNum = 0, remainder;
 
-        while(changedNumber > 0){
-            temp = changedNumber % 10;
-            reversedNumber = reversedNumber * 10 + temp;
-            changedNumber /= 10;
+        int originalNum = number;
+
+        while (number != 0) {
+            remainder = number % 10;
+            reversedNum = reversedNum * 10 + remainder;
+            number /= 10;
         }
 
-        if(reversedNumber == number){
-            isPalindrome = true;
+        if (originalNum == reversedNum) {
+             return true;
+        } else {
+             return false;
         }
 
-        return isPalindrome;
     }
 
     @Override
     public boolean isAutomorphic(int number) {
 
-        boolean isAutomorphic = false;
-        int square = number * number;
+        int count = 0;
+        int temp = number;
+        long square = (long) number * number;
 
-        while (number > 0){
-
-            if (number % 10 == square % 10) {
-                isAutomorphic = true;
-            }
-            number /= 10;
-            square /= 10;
+        while(temp > 0){
+            count++;
+            temp /= 10;
         }
 
-        return isAutomorphic;
+        return number == (int) (square % (Math.pow(10, count)));
     }
 }

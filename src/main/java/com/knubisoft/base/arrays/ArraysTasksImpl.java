@@ -1,5 +1,7 @@
 package com.knubisoft.base.arrays;
 
+import java.util.Arrays;
+
 public class ArraysTasksImpl implements ArraysTasks {
 
     @Override
@@ -37,27 +39,30 @@ public class ArraysTasksImpl implements ArraysTasks {
     @Override
     public int[] findMax3InArray(int[] array) {
 
-        int[] resultArray = new int[3];
+        int [] resultArray;
 
-        resultArray[0] = array[0];
-        resultArray[1] = array[0];
-        resultArray[2] = array[0];
+        int first, second, third;
 
-        for(int i = 0; i < array.length; i++) {
+        if (array.length < 3) {
+            resultArray = array;
+        } else {
 
-            if (resultArray[0] < array[i]) {
-                resultArray[2] = resultArray[1];
-                resultArray[1] = resultArray[0];
-                resultArray[0] = array[i];
+            third = first = second = Integer.MIN_VALUE;
+
+            for (int i = 0; i < array.length; i++) {
+
+                if (array[i] > first) {
+                    third = second;
+                    second = first;
+                    first = array[i];
+                } else if (array[i] > second) {
+                    third = second;
+                    second = array[i];
+                } else if (array[i] > third)
+                    third = array[i];
             }
-            else if (resultArray[1] < array[i]) {
-                resultArray[2] = resultArray[1];
-                resultArray[1] = array[i];
 
-            }
-            else if (resultArray[2] < array[i]) {
-                resultArray[2] = array[i];
-            }
+            resultArray = new int[]{first, second, third};
         }
 
         return resultArray;
@@ -68,6 +73,10 @@ public class ArraysTasksImpl implements ArraysTasks {
 
         int count = 1;
         int max = 1;
+
+        if(array.length == 0){
+            return 0;
+        }
 
         for(int i = 0; i < array.length - 1; i++){
 
@@ -85,7 +94,25 @@ public class ArraysTasksImpl implements ArraysTasks {
 
     @Override
     public int sumOfAllUniqueElements(int[] array) {
-        return -1;
+
+        Arrays.sort(array);
+
+        int sum = 0;
+        int j = 0;
+
+        for (int i = 0; i < array.length - 1; i++) {
+            if (array[i] != array[i + 1]) {
+                array[j++] = array[i];
+            }
+        }
+
+        array[j++] = array[array.length - 1];
+
+        for (int i = 0; i < array.length; i++){
+            sum += array[i];
+        }
+
+        return sum;
     }
 
     @Override
@@ -111,6 +138,8 @@ public class ArraysTasksImpl implements ArraysTasks {
     @Override
     public int findFinalValue(int[] nums, int original) {
 
+        Arrays.sort(nums);
+
         for(int i = 0; i < nums.length; i++){
 
             if(nums[i] == original){
@@ -123,7 +152,21 @@ public class ArraysTasksImpl implements ArraysTasks {
 
     @Override
     public String longestCommonPrefix(String[] words) {
-        return null;
+
+        if (words.length == 0)
+            return "";
+
+        Arrays.sort(words);
+
+        int end = Math.min(words[0].length(), words[words.length-1].length());
+        int i = 0;
+
+        while (i < end && words[0].charAt(i) == words[words.length - 1].charAt(i))
+            i++;
+
+        String prefix = words[0].substring(0, i);
+
+        return prefix;
     }
 
     @Override

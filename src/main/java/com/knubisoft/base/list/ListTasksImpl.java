@@ -1,10 +1,9 @@
 package com.knubisoft.base.list;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class ListTasksImpl implements ListTasks {
+
     @Override
     public List<String> addElements(String... elements) {
 
@@ -16,7 +15,7 @@ public class ListTasksImpl implements ListTasks {
 
         List<String> newList = new ArrayList<>();
 
-        for(int i = 0; i < indexes.length; i++){
+        for (int i = 0; i < indexes.length; i++) {
 
             newList.add(elements.get(i));
         }
@@ -26,7 +25,14 @@ public class ListTasksImpl implements ListTasks {
 
     @Override
     public ArrayList<String> addElementsByIndexes(ArrayList<String> elements, int[] indexes) {
-        return null;
+
+        ArrayList<String> newList = new ArrayList<>(elements);
+
+        for (int j = 0; j <= newList.size() + indexes.length; j++) {
+            newList.add(indexes[j], elements.get(indexes[j]));
+        }
+
+        return newList;
     }
 
     @Override
@@ -36,58 +42,179 @@ public class ListTasksImpl implements ListTasks {
 
     @Override
     public int getListSize(List<String> list) {
-        return -1;
+
+        return list == null ? 0 : list.size();
     }
 
     @Override
     public List<Long> merge(List<Integer> first, List<Long> second, List<String> third) {
-        return null;
+
+        for (String s : third) {
+            if (s == null) {
+                throw new NullPointerException();
+            }
+        }
+
+        List<Long> updatedThird = new ArrayList<>();
+
+        for (String s : third) {
+            updatedThird.add(Long.parseLong(s));
+        }
+
+        List<Long> updatedFirst = new ArrayList<>();
+
+        for (Integer i : first) {
+            updatedFirst.add(Long.valueOf(i));
+        }
+
+        List<Long> merged = new ArrayList(updatedFirst);
+
+        merged.addAll(second);
+        merged.addAll(updatedThird);
+
+        return merged;
     }
 
     @Override
     public int findMaxValue(List<Integer> first, List<Integer> second, List<Integer> third) {
-        return -1;
+
+        List<Integer> merged = new ArrayList(first);
+
+        merged.addAll(second);
+        merged.addAll(third);
+
+        return Collections.max(merged);
     }
 
     @Override
     public int findMinValue(List<Integer> first, List<Integer> second, List<Integer> third) {
-        return -1;
+
+        List<Integer> merged = new ArrayList(first);
+
+        merged.addAll(second);
+        merged.addAll(third);
+
+        return Collections.min(merged);
     }
 
     @Override
     public int multiplyMax2Elements(List<Integer> first, List<Integer> second, List<Integer> third) {
-        return -1;
+
+        List<Integer> merged = new ArrayList(first);
+
+        merged.addAll(second);
+        merged.addAll(third);
+
+        int secondLargest = merged.get(0);
+        int largest = merged.get(0);
+
+        int result;
+
+        if (merged.contains(Integer.MAX_VALUE)) {
+            result = 1;
+        } else {
+            for (int i = 0; i < merged.size(); i++) {
+
+                if (merged.get(i) > largest) {
+                    largest = merged.get(i);
+                    secondLargest = largest;
+
+                    if (merged.get(i) > secondLargest && merged.get(i) != largest) {
+                        secondLargest = merged.get(i);
+                    }
+                }
+            }
+
+            result = largest * secondLargest;
+        }
+
+        return result;
     }
 
     @Override
     public List<String> removeNulls(List<String> list) {
-        return null;
+
+        while (list.remove(null)) ;
+
+        return list;
     }
 
     @Override
     public List<Integer> flatMapWithoutNulls(List<List<Integer>> list) {
-        return null;
+
+        List<Integer> flatList = new ArrayList<>();
+
+        try {
+            list.isEmpty();
+        } catch (NullPointerException e) {
+            throw new NoSuchElementException();
+        }
+
+        for (List<Integer> integers : list) {
+            flatList.addAll(integers);
+        }
+
+        for (int j = 0; j < flatList.size(); j++) {
+            flatList.remove(null);
+        }
+
+        return flatList;
     }
 
     @Override
     public List<Integer> cloneIds(List<Integer> originalIds) {
-        return null;
+
+        try {
+            originalIds.isEmpty();
+        } catch (NullPointerException e) {
+            throw new NoSuchElementException();
+        }
+
+        while (originalIds.remove(null)) ;
+
+        List<Integer> list = new ArrayList(originalIds);
+
+        return list;
     }
 
     @Override
     public List<String> shuffle(List<String> originalStrings) {
-        return null;
+
+        Collections.shuffle(originalStrings);
+
+        return originalStrings;
     }
 
     @Override
     public String getLastElement(LinkedList<String> list) {
-        return null;
+
+        try {
+            list.isEmpty();
+        } catch (NullPointerException e) {
+            throw new NoSuchElementException();
+        }
+
+        if (list.isEmpty()) {
+            return "";
+        }
+
+        return list.getLast();
     }
 
     @Override
-    public List<String> compareElements(LinkedList<String> originalCollection, LinkedList<String> additionalCollection){
+    public List<String> compareElements(LinkedList<String> originalCollection, LinkedList<String> additionalCollection) {
 
+        try {
+            originalCollection.isEmpty();
+            additionalCollection.isEmpty();
+        } catch (NullPointerException e) {
+            throw new IllegalArgumentException();
+        }
 
-        return null;
+        List<String> similar = new LinkedList<>(originalCollection);
+
+        similar.retainAll(additionalCollection);
+
+        return similar;
     }
 }

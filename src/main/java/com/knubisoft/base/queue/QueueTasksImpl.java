@@ -10,7 +10,19 @@ public class QueueTasksImpl implements QueueTasks {
 
     @Override
     public Queue<Integer> reverseQueueUsingRecursion(Queue<Integer> queue) {
-        return null;
+
+        if (queue.isEmpty()){
+            return queue;
+        }
+
+        int data = queue.peek();
+        queue.remove();
+
+        queue = reverseQueueUsingRecursion(queue);
+
+        queue.add(data);
+
+        return queue;
     }
 
     @Override

@@ -1,17 +1,29 @@
 package com.knubisoft.base.string;
 
+import java.util.NoSuchElementException;
+
 public class StringTasksImpl implements StringTasks {
 
     @Override
     public String reverseString(String original) {
 
-        StringBuilder stringBuilder = new StringBuilder();
-        char[] stringArray = original.toCharArray();
-
-        for(int i = stringArray.length - 1; i >= 0; i--){
-
-            stringBuilder.append(stringArray[i]);
+        try {
+            original.equalsIgnoreCase(null);
         }
+        catch (NullPointerException e) {
+            throw new IllegalArgumentException();
+        }
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+            char[] stringArray = original.toCharArray();
+
+            for (int i = stringArray.length - 1; i >= 0; i--) {
+
+                stringBuilder.append(stringArray[i]);
+
+            }
+
         return stringBuilder.toString();
     }
 
@@ -23,6 +35,17 @@ public class StringTasksImpl implements StringTasks {
     @Override
     public String insertSymbolInString(String original, char toInsert, int position) {
 
+        try {
+            original.equalsIgnoreCase(null);
+        }
+        catch (NullPointerException e) {
+            throw new IllegalArgumentException();
+        }
+
+        if(position > original.length() || position < original.length() || original == ""){
+            throw new IllegalArgumentException();
+        }
+
         StringBuilder stringBuilder = new StringBuilder(original);
         stringBuilder.insert(position, toInsert);
 
@@ -31,6 +54,18 @@ public class StringTasksImpl implements StringTasks {
 
     @Override
     public String appendToString(StringBuilder original, String toAppend) {
+
+        try {
+            original.toString().equalsIgnoreCase(null);
+            toAppend.equalsIgnoreCase(null);
+        }
+        catch (NullPointerException e) {
+            throw new NoSuchElementException();
+        }
+
+        if(original.toString().isEmpty()){
+            throw new NoSuchElementException();
+        }
 
         StringBuilder stringBuilderResult = original.append(toAppend);
 
@@ -72,9 +107,17 @@ public class StringTasksImpl implements StringTasks {
     @Override
     public boolean hasLowerCase(String str) {
 
+        try {
+            str.equalsIgnoreCase(null);
+        }
+        catch (NullPointerException e) {
+            throw new IllegalArgumentException();
+        }
+
         int count = 0;
-        boolean hasOnlyLowerCase = false;
+        boolean hasOnlyLowerCase = true;
         char[] strArray = str.toCharArray();
+
 
         for(int i = 0; i < strArray.length; i++){
 
@@ -84,8 +127,8 @@ public class StringTasksImpl implements StringTasks {
                 count++;
             }
 
-            if(count == 0){
-                hasOnlyLowerCase = true;
+            if(count != 0){
+                hasOnlyLowerCase = false;
             }
         }
         return hasOnlyLowerCase;
@@ -93,6 +136,13 @@ public class StringTasksImpl implements StringTasks {
 
     @Override
     public String uniqueCharacters(String str) {
+
+        try {
+            str.equalsIgnoreCase(null);
+        }
+        catch (NullPointerException e) {
+            throw new IllegalArgumentException();
+        }
 
         StringBuilder stringBuilder = new StringBuilder(str.toLowerCase());
 
@@ -116,6 +166,13 @@ public class StringTasksImpl implements StringTasks {
 
     @Override
     public String removeAllCharacters(String str, char charToRemove) {
+
+        try {
+            str.equalsIgnoreCase(null);
+        }
+        catch (NullPointerException e) {
+            throw new IllegalArgumentException();
+        }
 
         StringBuilder stringBuilder = new StringBuilder(str);
 
@@ -141,6 +198,13 @@ public class StringTasksImpl implements StringTasks {
     @Override
     public String sortStringCharactersAsc(String str) {
 
+        try {
+            str.equalsIgnoreCase(null);
+        }
+        catch (NullPointerException e) {
+            throw new IllegalArgumentException();
+        }
+
         char[] strArray = str.toCharArray();
 
         for(int i = 0; i < strArray.length; i++){
@@ -156,8 +220,6 @@ public class StringTasksImpl implements StringTasks {
             }
         }
 
-        String string = String.valueOf(strArray).replace(" ", "");
-
-        return string;
+        return String.valueOf(strArray);
     }
 }
