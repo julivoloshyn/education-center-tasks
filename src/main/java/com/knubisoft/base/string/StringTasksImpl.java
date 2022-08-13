@@ -7,10 +7,7 @@ public class StringTasksImpl implements StringTasks {
     @Override
     public String reverseString(String original) {
 
-        try {
-            original.equalsIgnoreCase(null);
-        }
-        catch (NullPointerException e) {
+        if (original == null) {
             throw new IllegalArgumentException();
         }
 
@@ -29,20 +26,30 @@ public class StringTasksImpl implements StringTasks {
 
     @Override
     public String insertStringInMiddle(String original, String toInsert) {
-        return null;
+
+        if (original == null || toInsert == null || original.length() == 0 || toInsert.length() == 0) {
+            throw new IllegalArgumentException();
+        }
+
+        int index = original.length() / 2 - 1;
+
+        String newString = new String();
+
+        for (int i = 0; i < original.length(); i++) {
+            newString += original.charAt(i);
+
+            if (i == index) {
+                newString += toInsert;
+            }
+        }
+
+        return newString;
     }
 
     @Override
     public String insertSymbolInString(String original, char toInsert, int position) {
 
-        try {
-            original.equalsIgnoreCase(null);
-        }
-        catch (NullPointerException e) {
-            throw new IllegalArgumentException();
-        }
-
-        if(position > original.length() || position < original.length() || original == ""){
+        if (original == null || position > original.length() || original.length() == 0 || position < 0) {
             throw new IllegalArgumentException();
         }
 
@@ -107,10 +114,7 @@ public class StringTasksImpl implements StringTasks {
     @Override
     public boolean hasLowerCase(String str) {
 
-        try {
-            str.equalsIgnoreCase(null);
-        }
-        catch (NullPointerException e) {
+        if (str == null) {
             throw new IllegalArgumentException();
         }
 
@@ -137,10 +141,7 @@ public class StringTasksImpl implements StringTasks {
     @Override
     public String uniqueCharacters(String str) {
 
-        try {
-            str.equalsIgnoreCase(null);
-        }
-        catch (NullPointerException e) {
+        if (str == null) {
             throw new IllegalArgumentException();
         }
 
@@ -167,10 +168,7 @@ public class StringTasksImpl implements StringTasks {
     @Override
     public String removeAllCharacters(String str, char charToRemove) {
 
-        try {
-            str.equalsIgnoreCase(null);
-        }
-        catch (NullPointerException e) {
+        if (str == null) {
             throw new IllegalArgumentException();
         }
 
@@ -187,21 +185,73 @@ public class StringTasksImpl implements StringTasks {
 
     @Override
     public String toCamelCase(String str) {
-        return null;
+
+        if (str == null || str.length() == 0) {
+        throw new IllegalArgumentException();
+        }
+
+        String[] arr;
+        if (str.contains("-")) {
+            arr = str.split("-");
+        } else if (str.contains("_")) {
+            arr = str.split("_");
+        } else {
+            arr = str.split(" ");
+        }
+
+        String res = "";
+        for (int i = 0; i < arr.length; i++) {
+
+            if (arr[i].charAt(0) == arr[i].toLowerCase().charAt(0)) {
+
+                if (i == 0) {
+                    res += arr[i];
+                } else {
+                    res += arr[i].substring(0, 1).toUpperCase() + arr[i].substring(1);
+                }
+            } else {
+
+                if (arr[i].charAt(0) == arr[i].toUpperCase().charAt(0) && i == 0) {
+                    res += arr[i].toLowerCase();
+                } else {
+                    res += arr[i];
+                }
+            }
+        }
+
+        return res;
     }
 
     @Override
     public String getCountRepeatableString(String str) {
-        return null;
-    }
+
+        if (str == null) {
+            throw new IllegalArgumentException();
+        }
+        StringBuilder builder = new StringBuilder();
+        int len = str.length();
+
+        for (int i = 0; i < len; i++) {
+            int find = 0;
+
+            for (int j = i; j < len; j++) {
+
+                if (str.charAt(i) == str.charAt(j)) {
+                    find++;
+
+                    if (find > 9) {
+                        find = 1;
+                    }
+                    builder.append(find);
+                }
+            }
+        }
+        return builder.toString();    }
 
     @Override
     public String sortStringCharactersAsc(String str) {
 
-        try {
-            str.equalsIgnoreCase(null);
-        }
-        catch (NullPointerException e) {
+        if (str == null) {
             throw new IllegalArgumentException();
         }
 
