@@ -5,6 +5,7 @@ import com.knubisoft.base.queue.car.Car;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.Stack;
 
 public class QueueTasksImpl implements QueueTasks {
 
@@ -19,7 +20,6 @@ public class QueueTasksImpl implements QueueTasks {
         queue.remove();
 
         queue = reverseQueueUsingRecursion(queue);
-
         queue.add(data);
 
         return queue;
@@ -27,7 +27,29 @@ public class QueueTasksImpl implements QueueTasks {
 
     @Override
     public Queue<Integer> reverseFirstKElementsOfQueue(Queue<Integer> queue, int k) {
-        return null;
+
+        if(queue.isEmpty() || k > queue.size() || k <= 0){
+            return queue;
+        }
+
+        Stack<Integer> stack = new Stack<>();
+
+        for(int i = 0; i< k; i++){
+            stack.push(queue.peek());
+            queue.remove();
+        }
+
+        while(!stack.isEmpty()){
+            queue.add(stack.peek());
+            stack.pop();
+        }
+
+        for(int i =0; i< queue.size() - k; i++){
+            queue.add(queue.peek());
+            queue.remove();
+        }
+
+        return queue;
     }
 
     @Override
