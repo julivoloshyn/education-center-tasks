@@ -34,6 +34,7 @@ public class NumbersTasksImpl implements NumbersTasks {
                 }
             }
         }
+
         return isUgly;
     }
 
