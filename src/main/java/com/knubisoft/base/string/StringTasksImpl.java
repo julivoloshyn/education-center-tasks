@@ -12,14 +12,12 @@ public class StringTasksImpl implements StringTasks {
         }
 
         StringBuilder stringBuilder = new StringBuilder();
+        char[] stringArray = original.toCharArray();
 
-            char[] stringArray = original.toCharArray();
+        for (int i = stringArray.length - 1; i >= 0; i--) {
 
-            for (int i = stringArray.length - 1; i >= 0; i--) {
-
-                stringBuilder.append(stringArray[i]);
-
-            }
+            stringBuilder.append(stringArray[i]);
+        }
 
         return stringBuilder.toString();
     }
@@ -65,12 +63,11 @@ public class StringTasksImpl implements StringTasks {
         try {
             original.toString().equalsIgnoreCase(null);
             toAppend.equalsIgnoreCase(null);
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             throw new NoSuchElementException();
         }
 
-        if(original.toString().isEmpty()){
+        if (original.toString().isEmpty()) {
             throw new NoSuchElementException();
         }
 
@@ -90,21 +87,21 @@ public class StringTasksImpl implements StringTasks {
 
         boolean isPalindrome = false;
 
-        for(int i = 0; i < j; i++, j--){
+        for (int i = 0; i < j; i++, j--) {
 
             char temp = reversedStringArray[i];
             reversedStringArray[i] = reversedStringArray[j];
             reversedStringArray[j] = temp;
         }
 
-        for(int i = 0; i < stringArray.length; i++) {
+        for (int i = 0; i < stringArray.length; i++) {
 
-            if (Character.toLowerCase(stringArray[i]) != Character.toLowerCase(reversedStringArray[i])){
+            if (Character.toLowerCase(stringArray[i]) != Character.toLowerCase(reversedStringArray[i])) {
                 count++;
             }
         }
 
-        if(count == 0){
+        if (count == 0) {
             isPalindrome = true;
         }
 
@@ -123,15 +120,15 @@ public class StringTasksImpl implements StringTasks {
         char[] strArray = str.toCharArray();
 
 
-        for(int i = 0; i < strArray.length; i++){
+        for (int i = 0; i < strArray.length; i++) {
 
             char ch = strArray[i];
 
-            if(Character.isUpperCase(ch)){
+            if (Character.isUpperCase(ch)) {
                 count++;
             }
 
-            if(count != 0){
+            if (count != 0) {
                 hasOnlyLowerCase = false;
             }
         }
@@ -147,17 +144,17 @@ public class StringTasksImpl implements StringTasks {
 
         StringBuilder stringBuilder = new StringBuilder(str.toLowerCase());
 
-        for (int i = 0; i < stringBuilder.length(); i++){
+        for (int i = 0; i < stringBuilder.length(); i++) {
             int count = 0;
 
-            for(int j = i + 1; j < stringBuilder.length(); j++){
-                if(stringBuilder.charAt(i) == stringBuilder.charAt(j)) {
+            for (int j = i + 1; j < stringBuilder.length(); j++) {
+                if (stringBuilder.charAt(i) == stringBuilder.charAt(j)) {
                     stringBuilder.deleteCharAt(j);
                     j--;
                     count++;
                 }
-                }
-            if(count >= 1){
+            }
+            if (count >= 1) {
                 stringBuilder.deleteCharAt(i);
                 i--;
             }
@@ -174,9 +171,9 @@ public class StringTasksImpl implements StringTasks {
 
         StringBuilder stringBuilder = new StringBuilder(str);
 
-        for(int i = 0; i < stringBuilder.length(); i++){
+        for (int i = 0; i < stringBuilder.length(); i++) {
 
-            if(stringBuilder.charAt(i) == charToRemove){
+            if (stringBuilder.charAt(i) == charToRemove) {
                 stringBuilder.deleteCharAt(i);
             }
         }
@@ -187,7 +184,7 @@ public class StringTasksImpl implements StringTasks {
     public String toCamelCase(String str) {
 
         if (str == null || str.length() == 0) {
-        throw new IllegalArgumentException();
+            throw new IllegalArgumentException();
         }
 
         String[] arr;
@@ -246,7 +243,8 @@ public class StringTasksImpl implements StringTasks {
                 }
             }
         }
-        return builder.toString();    }
+        return builder.toString();
+    }
 
     @Override
     public String sortStringCharactersAsc(String str) {
@@ -257,11 +255,11 @@ public class StringTasksImpl implements StringTasks {
 
         char[] strArray = str.toCharArray();
 
-        for(int i = 0; i < strArray.length; i++){
+        for (int i = 0; i < strArray.length; i++) {
 
-            for(int j = i + 1; j < strArray.length; j++){
+            for (int j = i + 1; j < strArray.length; j++) {
 
-                if(Character.toLowerCase(strArray[j]) < Character.toLowerCase(strArray[i])){
+                if (Character.toLowerCase(strArray[j]) < Character.toLowerCase(strArray[i])) {
 
                     char temp = strArray[i];
                     strArray[i] = strArray[j];
