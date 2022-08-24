@@ -1,7 +1,6 @@
 package com.knubisoft.tasks.algorithm.charsinstring;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 public class CharsInStringImpl implements CharsInString {
@@ -10,16 +9,14 @@ public class CharsInStringImpl implements CharsInString {
     public Map<Character, Integer> charactersCount(String text) {
 
         Map<Character, Integer> charCount = new HashMap<>();
+        text = text.replaceAll(" ", "");
 
-        int k = 1;
+        for(Character c : text.toCharArray()){
 
-        for(int i = 0; i < text.length(); i++){
-
-            if(text.charAt(i) == ' '){
-                continue;
+            if(charCount.containsKey(c)){
+                charCount.put(c, charCount.get(c) + 1);
             } else {
-                charCount.put(text.charAt(i), k);
-                k++;
+                charCount.put(c, 1);
             }
         }
 
