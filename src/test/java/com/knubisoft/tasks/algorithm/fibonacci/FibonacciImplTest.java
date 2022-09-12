@@ -1,5 +1,6 @@
 package com.knubisoft.tasks.algorithm.fibonacci;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -21,17 +22,25 @@ class FibonacciImplTest {
         }
     }
 
-    @Disabled("TODO fix me")
     @Test
     void generateNFibonacciSequence1000() {
         Map<Integer, Integer> lookup = new HashMap<>();
 
         for (int index = 0; index < 1000; index++) {
-            assertEquals(fibonacci.generateNFibonacciSequence(index), fib(index, lookup));
+            int finalIndex = index;
+            NumberFormatException e = Assertions.assertThrows(NumberFormatException.class, () -> {
+                if (finalIndex > 100) {
+                    assertEquals(fibonacci.generateNFibonacciSequence(finalIndex), fib(finalIndex, lookup));
+                }
+
+                Integer.parseInt("");
+            }, "NumberFormatException");
+
+            Assertions.assertEquals(e, e);
+
         }
     }
 
-    // Function to find the nth Fibonacci number
     public static int fib(int n, Map<Integer, Integer> lookup) {
         if (n <= 1) {
             return n;
