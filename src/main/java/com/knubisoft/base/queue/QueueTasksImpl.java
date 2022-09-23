@@ -1,11 +1,10 @@
 package com.knubisoft.base.queue;
 
 import com.knubisoft.base.queue.car.Car;
+import com.knubisoft.base.queue.car.CarComparator;
 
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class QueueTasksImpl implements QueueTasks {
 
@@ -54,17 +53,54 @@ public class QueueTasksImpl implements QueueTasks {
 
     @Override
     public Queue<Integer> sortQueueOfInt(Queue<Integer> queue) {
-        return null;
+
+        List<Integer> temp = new ArrayList<>();
+
+        while (!queue.isEmpty()){
+            temp.add(queue.peek());
+            queue.poll();
+        }
+        Collections.sort(temp);
+        queue.addAll(temp);
+
+        return queue;
     }
 
     @Override
     public boolean validParentheses(String parentheses) {
-        return false;
+        if(parentheses.length() % 2 == 1){
+            return false;
+        }
+
+        char[] chars = parentheses.toCharArray();
+        Deque<Character> deque = new LinkedList<>();
+
+        for(char c : chars){
+            if(c == '(' || c == '{' || c == '[') {
+                deque.push(c);
+            } else {
+                char queueSymbol = deque.peek();
+
+                if(c == ')' && queueSymbol == '(') {
+                    deque.pop();
+                } else if (c == '}' && queueSymbol == '{') {
+                    deque.pop();
+                } else if(c == ']' && queueSymbol == '[') {
+                    deque.pop();
+                } else {
+                    return false;
+                }
+            }
+        }
+        return deque.isEmpty();
     }
 
     @Override
     public PriorityQueue<Car> implementPriorityQueueThroughComparator(List<Car> cars) {
-        return null;
+        PriorityQueue<Car> priorityQueue = new PriorityQueue<>(new CarComparator());
+        priorityQueue.addAll(cars);
+
+        return priorityQueue;
     }
 
 }
