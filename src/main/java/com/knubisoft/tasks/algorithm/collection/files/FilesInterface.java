@@ -1,4 +1,4 @@
-package com.knubisoft.tasks.algorithm.collection;
+package com.knubisoft.tasks.algorithm.collection.files;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,10 +10,7 @@ import java.nio.file.NotDirectoryException;
 import java.nio.file.Path;
 import java.util.List;
 
-/**
- * TODO implement class and tests
- */
-public interface Files {
+public interface FilesInterface {
 
     /**
      * Tests whether the contents of two files are equal.

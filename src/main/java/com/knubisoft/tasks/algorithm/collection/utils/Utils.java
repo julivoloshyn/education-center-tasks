@@ -1,4 +1,4 @@
-package com.knubisoft.tasks.algorithm.collection;
+package com.knubisoft.tasks.algorithm.collection.utils;
 
 import org.apache.commons.collections4.comparators.ComparatorChain;
 
@@ -7,9 +7,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
-/**
- * TODO implement class and tests
- */
 public interface Utils {
 
     /**
