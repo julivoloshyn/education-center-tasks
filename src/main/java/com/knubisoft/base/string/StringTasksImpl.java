@@ -270,4 +270,8 @@ public class StringTasksImpl implements StringTasks {
 
         return String.valueOf(strArray);
     }
+
+    public String method(){
+        return "Hello world";
+    }
 }

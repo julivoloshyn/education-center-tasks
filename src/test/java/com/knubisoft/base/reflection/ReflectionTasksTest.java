@@ -7,10 +7,10 @@ import com.knubisoft.base.string.StringTasksImpl;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Method;
 import java.util.NoSuchElementException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ReflectionTasksTest {
 
@@ -75,15 +75,64 @@ public class ReflectionTasksTest {
     @SneakyThrows
     public void countPrivateMethodsInClassSuccessful() {
         Class<?> clazz = Class.forName("com.knubisoft.base.reflection.model.EntryModel");
-        assertEquals(2, instance.countPrivateMethodsInClass(clazz));
+        assertEquals(1, instance.countPrivateMethodsInClass(clazz));
         assertEquals(0, instance.countPrivateMethodsInClass(StringTasks.class));
-        assertEquals(2, instance.countPrivateMethodsInClass(EntryModel.class));
+        assertEquals(1, instance.countPrivateMethodsInClass(EntryModel.class));
     }
 
     @Test
     @SneakyThrows
     public void countPrivateMethodsInClassFail() {
-        assertThrows(NoSuchElementException.class, () -> instance.countPrivateMethodsInClass(null));
+        assertThrows(NoSuchElementException.class,
+                () -> instance.countPrivateMethodsInClass(null));
+    }
+
+    @SneakyThrows
+    @Test
+    public void isMethodHasAnnotationSuccess() {
+        Class<?> clazz = Class.forName("com.knubisoft.base.reflection.model.EntryModel");
+        Method method1 = EntryModel.class.getMethod("builder");
+        Method method2 = EntryModel.class.getMethod("getUser");
+
+        assertTrue(instance.isMethodHasAnnotation(method1, clazz));
+        assertFalse(instance.isMethodHasAnnotation(method2, clazz));
+    }
+
+    @SneakyThrows
+    @Test
+    public void isMethodHasAnnotationFail(){
+        Class<?> clazz = Class.forName("com.knubisoft.base.reflection.model.EntryModel");
+        Method method = EntryModel.class.getMethod("builder");
+
+        assertThrows(NoSuchElementException.class,
+                () -> instance.isMethodHasAnnotation(null, clazz));
+        assertThrows(NoSuchElementException.class,
+                () -> instance.isMethodHasAnnotation(method, null));
+        assertThrows(NoSuchElementException.class,
+                () -> instance.isMethodHasAnnotation(null, null));
+    }
+
+    @SneakyThrows
+    @Test
+    public void evaluateMethodByNameSuccess(){
+        Class<?> clazz = Class.forName("com.knubisoft.base.string.StringTasksImpl");
+        String name = "method";
+
+        assertEquals("Hello world", instance.evaluateMethodByName(clazz, name));
+    }
+
+    @SneakyThrows
+    @Test
+    public void evaluateMethodByNameFail(){
+        Class<?> clazz = Class.forName("com.knubisoft.base.string.StringTasksImpl");
+        String name = "method";
+
+        assertThrows(NoSuchElementException.class,
+                () -> instance.evaluateMethodByName(clazz, null));
+        assertThrows(NoSuchElementException.class,
+                () -> instance.evaluateMethodByName(null, null));
+        assertThrows(NoSuchElementException.class,
+                () -> instance.evaluateMethodByName(null, name));
     }
 
     @Test
@@ -107,5 +156,19 @@ public class ReflectionTasksTest {
         assertThrows(IllegalArgumentException.class,
                 () -> instance.evaluateMethodWithArgsByName(new StringTasksImpl(),
                         "insertStringInMiddle", null));
+    }
+
+    @Test
+    public void changePrivateFieldValueFail() {
+        String name = "hello";
+        String newValue = "hola";
+
+        assertThrows(NoSuchElementException.class,
+                () -> instance.changePrivateFieldValue(new StringTasksImpl(), name, null));
+        assertThrows(NoSuchElementException.class,
+                () -> instance.changePrivateFieldValue(null, name, newValue));
+        assertThrows(NoSuchElementException.class,
+                () -> instance.changePrivateFieldValue(new StringTasksImpl(), null, newValue));
+
     }
 }

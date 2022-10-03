@@ -21,11 +21,12 @@ public abstract class EntryModel {
         this.version = version;
     }
 
+    @Deprecated
     public EntryModel builder() {
         return this;
     }
 
-    private String getUser() {
+    public String getUser() {
         return "";
     }
 
