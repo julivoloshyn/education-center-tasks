@@ -3,14 +3,11 @@
 // (powered by FernFlower decompiler)
 //
 
-package com.knubisoft.tasks.algorithm.reflection;
+package com.knubisoft.tasks.algorithm.reflection.fieldutils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
-/**
- * Add implementation class and tests
- */
 public interface FieldUtils {
 
     Field getField(Class<?> cls, String fieldName);
