@@ -21,8 +21,9 @@ import lombok.Setter;
 public interface ValidationTasks {
     /**
      * Validate your instance (p.1 - p.5)
-     * */
-    void validate(Object instance);
+     *
+     * @return*/
+    boolean validate(Object instance);
     /**
      * Builder to create User
      * */
