@@ -1,9 +1,7 @@
 package com.knubisoft.tasks.algorithm;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.knubisoft.tasks.algorithm.reflection.annotation.AnnotationForTest;
+import lombok.*;
 
 import java.util.List;
 
@@ -15,9 +13,21 @@ public class ModelRoot {
 
     public List<Item> items;
 
+    @Data
+    @NoArgsConstructor
     public static class Batter {
+        @AnnotationForTest
         public String id;
         public String type;
+
+        public Batter(String id) {
+            this.id = id;
+        }
+
+        public Batter(String id, String type) {
+            this.id = id;
+            this.type = type;
+        }
     }
 
     @Getter
